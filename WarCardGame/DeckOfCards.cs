@@ -26,6 +26,7 @@ namespace WarCardGame
             var rnd = new Random();
             PlayingCard[] shuffledDeck = currentDeck.ToArray();
 
+            // Fisher-Yates shuffle
             for (int n = currentDeck.Count - 1; n > 0; --n)
             {
                 int k = rnd.Next(n + 1);
