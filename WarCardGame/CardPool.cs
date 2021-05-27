@@ -22,7 +22,18 @@ namespace WarCardGame
 
         public PlayingCard[] ClaimCards()
         {
-            return currentFaceUpCards;
+            List<PlayingCard> cardsToReturn = new List<PlayingCard>();
+
+            if (otherCards.Count > 0)
+            {
+                cardsToReturn = otherCards;
+            }
+            cardsToReturn.AddRange(currentFaceUpCards);
+
+            // Reset the pool
+            Reset();
+
+            return cardsToReturn.ToArray();
         }
 
         public string PrintCurrentPool()
@@ -60,6 +71,12 @@ namespace WarCardGame
             {
                 otherCards.Add(card);
             }
+        }
+
+        private void Reset()
+        {
+            otherCards = new List<PlayingCard>();
+            currentFaceUpCards = new PlayingCard[2];
         }
     }
 }
