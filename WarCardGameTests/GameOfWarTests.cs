@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 
 namespace WarCardGame.Tests
 {
@@ -37,9 +38,33 @@ namespace WarCardGame.Tests
         }
 
         [Fact]
-        public void PlayTest()
+        public void PlayToEnd()
         {
-            Assert.True(false);
+            var game = new GameOfWar();
+            game.StartGame();
+
+            try
+            {
+                while (true)
+                {
+                    game.Play(0);
+                    game.Play(1);
+
+                    if (game.IsThereAWinningHand())
+                    {
+                        game.ClaimCards();
+                    }
+                    else
+                    {
+                        game.GoToWar();
+                        game.ClaimCards();
+                    }
+                }
+            }
+            catch (InvalidOperationException excep)
+            {
+                Console.WriteLine(excep.Message);
+            }
         }
     }
 }

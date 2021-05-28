@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace WarCardGame
 {
@@ -82,6 +81,16 @@ namespace WarCardGame
 
         private void Play(int player, bool isFaceUp)
         {
+            if (playerHands[player].Count == 52)
+            {
+                throw new InvalidOperationException($"Player{player + 1} has all the cards and is the WINNER :)");
+            }
+            
+            if (playerHands[player].Count == 0)
+            {
+                throw new InvalidOperationException($"Player{player + 1} is out of cards :(");
+            }
+
             currentPool.Add(player, isFaceUp, playerHands[player][0]);
             playerHands[player].RemoveAt(0);
         }
